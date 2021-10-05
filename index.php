@@ -1,15 +1,33 @@
+<!-- Borrowed from https://github.com/cardanians/adapools.org/blob/master/spo-web/index.php -->
+<?php
+$my_pool_id = "27b1b4470c84db78ce1ffbfff77bb068abb4e47d43cb6009caaa3523";
+function adanice($n)
+{
+    if ($n > 1000000 * 1000 * 1000) {
+        return round($n / (1000000 * 1000 * 1000), 2) . "M";
+    } elseif ($n > 1000000 * 1000) {
+        return round($n / (1000000 * 1000), 2) . "k";
+    } else {
+        return round($n / 1000000);
+    }
+}
+$a = json_decode(file_get_contents("https://js.adapools.org/pools/{$my_pool_id}/summary.json", false, stream_context_create(['http' => ['timeout' => 5]])), true);
+$a = $a['data'];
+?>
+
 <!DOCTYPE html>
 <!--[if lt IE 8]><html class="no-js ie ie7" lang="en"> <![endif]-->
 <!--[if IE 8]><html class="no-js ie ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 8)|!(IE)]><!-->
+
 <html class="no-js" lang="en">
     <!--<![endif]-->
     <head>
         <!--- Basic Page Needs
    ================================================== -->
         <meta charset="utf-8" />
-        <title>CloudStruct Cardano Staking</title>
-        <meta name="description" content="" />
+        <title><?php echo "{$a['db_name']} - [{$a['db_ticker']}]"; ?></title>
+        <meta name="description" content="<?php echo $a['db_description']; ?>" />
         <meta name="author" content="" />
 
         <!-- Mobile Specific Metas
@@ -68,24 +86,46 @@
             </header>
             <!-- Header End -->
 
+            <!-- more fun PHP stuff -->
+            <?php
+$l = [
+    ["Live Stake", adanice($a['total_stake']) . " ADA"],
+    ["Epoch Blocks", $a['blocks_epoch']],
+    ["Lifetime Blocks", $a['blocks_epoch'] + $a['blocks_lifetime']],
+    ["Delegators", $a['delegators']],
+    ["Saturation", round($a['saturated'] * 100) . "%"],
+];
+$r = [
+    ["Active Stake", adanice($a['active_stake']) . " ADA"],
+    ["Return of ADA", round($a['roa_lifetime'], 2) . "%"],
+    ["Pool Pledge", adanice($a['pledge']) . " ADA"],
+    ["Costs (Fixed)", adanice($a['tax_fix']) . " ADA"],
+    ["Costs (Margin)", round($a['tax_ratio'] * 100, 2) . "%"],
+];
+?>
+
             <div id="main" class="row">
                 <div class="twelve columns">
                     <h1>Cardano Staking Pool</h1>
 
                     <p>CloudStruct is running a production grade Cardano staking pool under ticker</p>
-                    <h1>CSCS</h1>
-                    <p></p>
-                    <p>Donates 10% of operator rewards to <a href="https://eff.org">Electronic Frontier Foundation</a></p>
-                    <p>Rewards delegates with 10% of operator rewards</p>
-                    <p>Airdrops of <a href="https://pigytoken.com">$PIGY</a></p>
-                    <p>Airdrops of <a href="https://thankcoin.io">$THANK</a></p>
-                    <p></p>
+                    <h1><?php echo "{$a['db_ticker']}"; ?></h1>
                     <p>
-                        <a href="https://twitter.com/intent/tweet?screen_name=CSCS_pool&ref_src=twsrc%5Etfw" class="twitter-mention-button" data-show-count="false">Tweet to @CSCS_pool</a>
-                        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                        Our pool is dedicated to supporting decentralization of the Cardano blockchain to help protect
+                        online privacy and rights. This is why we support the <a href="https://eff.org">
+                        Electronic Frontier Foundation</a> (EFF) with donations from our pool operator rewards.
                     </p>
-                    <p></p>
+                    <p>
+                        To reward our delegators, we have several rewards programs.
+                    </p>
                 </div>
+
+                <ul class="stats-tabs">
+		    <li><p>Payout 10% of operator rewards</p></li>
+		    <li><p>Airdrops of <a href="https://pigytoken.com">$PIGY</a></p></li>
+		    <li><p>Airdrops of <a href="https://thankcoin.io">$THANK</a></p></li>
+                </ul>
+                <hr>
 
                 <!-- Begin Mailchimp Signup Form -->
                 <div id="mc_embed_signup">
@@ -121,6 +161,29 @@
                         <a href="https://twitter.com/CSCS_pool"><i class="fa fa-twitter"></i></a>
                     </li>
                 </ul>
+
+                <div class="twelve columns">
+
+
+                <div class="twelve columns">
+                    <hr>
+                    <h1>Live Stats</h1>
+
+                    <div class="six columns">
+                        <ul>
+                            <?php for ($i = 0; $i < count($l); $i++) {
+                            echo "<li><p>{$l[$i][0]}: <b>{$l[$i][1]}</b></p></li>"; }
+                            ?>
+                        </ul>
+                        </div>
+                    <div class="six columns">
+                        <ul>
+                            <?php for ($i = 0; $i < count($r); $i++) {
+                            echo "<li><p>{$r[$i][0]}: <b>{$r[$i][1]}</b></p></li>"; }
+                            ?>
+                        </ul>
+                    </div>
+                </div>
             </div>
             <!-- main end -->
         </section>

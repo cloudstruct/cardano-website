@@ -126,6 +126,10 @@ $r = [
 		    <li><p>Airdrops of <a href="https://thankcoin.io">$THANK</a></p></li>
                 </ul>
                 <hr>
+		<p color="white">Try out our free Slack Cryptocurrency Price bot!</p>
+		<meta name="slack-app-id" content="A02SEC86A2F">
+		<a href="https://slack.com/oauth/v2/authorize?client_id=266152552929.2898416214083&scope=app_mentions:read,chat:write,chat:write.customize,commands,incoming-webhook&user_scope="><img alt="Add CryptoPricey" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcSet="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
+                <hr>
 
                 <!-- Begin Mailchimp Signup Form -->
                 <div id="mc_embed_signup">

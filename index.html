@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<!--[if lt IE 8]><html class="no-js ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8]><html class="no-js ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 8)|!(IE)]><!-->
+
+<html class="no-js" lang="en">
+    <!--<![endif]-->
+    <head>
+        <!--- Basic Page Needs
+   ================================================== -->
+        <meta charset="utf-8" />
+        <title>CloudStruct Cardano Staking</title>
+        <meta name="description" content="CloudStruct Cardano Staking Pool" />
+        <meta name="author" content="CloudStruct, LLC." />
+
+        <!-- Mobile Specific Metas
+   ================================================== -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+        <!-- CSS
+    ================================================== -->
+        <link rel="stylesheet" href="css/default.css" />
+        <link rel="stylesheet" href="css/layout.css" />
+        <link rel="stylesheet" href="css/media-queries.css" />
+
+        <!-- Script
+   ================================================== -->
+        <script src="js/modernizr.js"></script>
+
+        <!-- Favicons
+        ================================================== -->
+        <link rel="shortcut icon" href="https://www.cloudstruct.net/wp-content/uploads/2018/05/favicon.png" />
+        <script id="mcjs">
+            !(function (c, h, i, m, p) {
+                (m = c.createElement(h)), (p = c.getElementsByTagName(h)[0]), (m.async = 1), (m.src = i), p.parentNode.insertBefore(m, p);
+            })(document, "script", "https://chimpstatic.com/mcjs-connected/js/users/58b2969afa1058eb3c2c7a31d/f4461b32f97f8ba8c7f22782b.js");
+        </script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script>
+          $.getJSON("https://js.cexplorer.io/api-static/pool/pool1y7cmg3cvsndh3nsll0llw7asdz4mferag09kqzw24g6jx2ce5ws.json", function(data) {
+          $.each( data.data, function( i, val ) {
+	    a=new Array('tax_fix','pledge','stake');
+	    if(a.includes(i))  val=Math.round(parseInt(val)/1000000);
+	    if(i=='blocks_lifetime') val=parseInt(val) + parseInt(data.data.blocks_epoch);
+
+	    $('#pool1y7cmg3cvsndh3nsll0llw7asdz4mferag09kqzw24g6jx2ce5ws_'+i).html(val).text();
+          });
+	});
+        </script>
+
+    </head>
+
+    <body>
+        <div id="preloader">
+            <div id="status">
+                <img src="images/preloader.gif" height="64" width="64" alt="" />
+            </div>
+        </div>
+
+        <!-- Intro Section
+   ================================================== -->
+        <section id="intro">
+            <header class="row">
+                <div id="logo">
+                    <a href="#">
+                        <img src="images/logo.png" alt="CloudStruct" />
+                    </a>
+                </div>
+
+            </header>
+            <!-- Header End -->
+
+            <div id="main" class="row">
+                <div class="twelve columns">
+                    <h1>Cardano Staking Pool</h1>
+
+                    <p>CloudStruct is running a production grade Cardano staking pool under ticker</p>
+		    <h1><a href="https://cexplorer.io/pool/pool1y7cmg3cvsndh3nsll0llw7asdz4mferag09kqzw24g6jx2ce5ws">CSCS</a></h1>
+                    <p>To reward our delegators, we have several rewards programs.</p>
+                </div>
+
+                <ul class="stats-tabs">
+		    <li><p>Payout 10% of operator rewards</p></li>
+		    <li><p>Airdrops of <a href="https://pigytoken.com">$PIGY</a></p></li>
+		    <li><p>Airdrops of <a href="https://thankcoin.io">$THANK</a></p></li>
+                </ul>
+
+                <div class="twelve columns">
+			<p>Rewards are paid via claims on <a href="https://tosidrop.io">TosiDrop</a></p>
+                </div>
+
+		<!-- Live stats -->
+                <!-- <div class="twelve columns">
+                    <hr>
+                    <h1>Live Stats</h1>
+
+                    <div class="six columns">
+                        <ul>
+				<li><p>Live Stake: <b><span id="pool1y7cmg3cvsndh3nsll0llw7asdz4mferag09kqzw24g6jx2ce5ws_stake"></span> ADA<br/></b></p></li>
+				<li><p>Costs: <b><span id="pool1y7cmg3cvsndh3nsll0llw7asdz4mferag09kqzw24g6jx2ce5ws_tax_ratio"></span>% +  <span id="pool1y7cmg3cvsndh3nsll0llw7asdz4mferag09kqzw24g6jx2ce5ws_tax_fix"></span> ADA<br/></b></p></li>
+				<li><p>Blocks in epoch: <b><span id="pool1y7cmg3cvsndh3nsll0llw7asdz4mferag09kqzw24g6jx2ce5ws_blocks_epoch"></span><br/></b></p></li>
+				<li><p>Blocks Lifetime: <b><span id="pool1y7cmg3cvsndh3nsll0llw7asdz4mferag09kqzw24g6jx2ce5ws_blocks_lifetime"></span><br/></b></p></li>
+                        </ul>
+                    </div>
+                    <div class="six columns">
+                        <ul>
+				<li><p>Return (10 epochs): <b><span id="pool1y7cmg3cvsndh3nsll0llw7asdz4mferag09kqzw24g6jx2ce5ws_roa_short"></span>%<br/></b></p></li>
+				<li><p>Return (lifetime): <b><span id="pool1y7cmg3cvsndh3nsll0llw7asdz4mferag09kqzw24g6jx2ce5ws_roa_lifetime"></span>%<br/></b></p></li>
+				<li><p>Pledge: <b><span id="pool1y7cmg3cvsndh3nsll0llw7asdz4mferag09kqzw24g6jx2ce5ws_pledge"></span> ADA<br/></b></p></li>
+				<li><p>Delegators: <b><span id="pool1y7cmg3cvsndh3nsll0llw7asdz4mferag09kqzw24g6jx2ce5ws_delegators"></span><br/></b></p></li>
+                        </ul>
+                    </div>
+		<p>More info on <b><a href="https://cexplorer.io/pool/pool1y7cmg3cvsndh3nsll0llw7asdz4mferag09kqzw24g6jx2ce5ws">cexplorer.io</a></b></p><br>
+		<hr>
+		</div> -->
+
+		<!-- socials -->
+                <ul class="social">
+		    <!-- <li><a href="https://discord.gg/5fPRZnX4qW"><i class="fa fa-discord"></i></a></li> -->
+		    <li><a href="https://github.com/cloudstruct"><i class="fa fa-github"></i></a></li>
+		    <!-- <li><a href="https://t.me/CSCS_pool"><i class="fa fa-telegram"></i></a></li> -->
+                    <li><a href="https://twitter.com/CSCS_pool"><i class="fa fa-twitter"></i></a></li>
+                </ul>
+
+            </div>
+            <!-- main end -->
+        </section>
+        <!-- end intro section -->
+
+        <!-- Java Script
+   ================================================== -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>
+            window.jQuery || document.write('<script src="js/jquery-1.10.2.min.js"><\/script>');
+        </script>
+        <script type="text/javascript" src="js/jquery-migrate-1.2.1.min.js"></script>
+
+	<!-- <script src="js/gmaps.js"></script> -->
+        <script src="js/waypoints.js"></script>
+	<script src="js/jquery.countdown.js"></script>
+	<script src="js/jquery.placeholder.js"></script>
+        <script src="js/backstretch.js"></script>
+        <script src="js/init.js"></script>
+        <script>
+            function clear() {
+                document.getElementById("mce-EMAIL").value = "";
+            }
+        </script>
+    </body>
+</html>
